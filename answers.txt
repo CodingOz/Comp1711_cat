@@ -1,0 +1,22 @@
+42,Los Del Rio,Macarena,1996
+Lose Yourself
+Without Me
+data1.txt:7,Whitney Houston,I Will Always Love You,1992
+data2.txt:84,Boyz II Men,End of the Road,1992
+1980
+Abba
+Bee Gees
+Blondie
+Carl Douglas
+Eagles
+George Harrison
+John Lennon
+John Travolta & Olivia Newton-John
+Mungo Jerry
+Queen
+Shocking Blue
+Terry Jacks
+The Beatles
+The Rolling Stones
+The Village People
+Tony Orlando & Dawn
