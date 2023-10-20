@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <string.h>ga
+#include <string.h>
 
 
 int circleArea(float radius)
