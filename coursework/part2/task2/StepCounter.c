@@ -21,7 +21,16 @@ int main()
         switch (choice)
         {
         case 'A':
-            printf("a");
+            printf("aaaaaaaaa\n");
+            char *filename;
+            printf("input filename:");
+            scanf("%c", filename);
+            FILE *file = fopen(filename, "r");
+            if (file == NULL)
+            {
+                printf("Error: could not open file");
+                return 1;
+            }
             break;
         case 'B':
             printf("b");
