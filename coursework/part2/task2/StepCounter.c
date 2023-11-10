@@ -21,22 +21,22 @@ int main()
         switch (choice)
         {
         case 'A':
-            printf("");
+            printf("a");
             break;
         case 'B':
-            printf("");
+            printf("b");
             break;
         case 'C':
-            printf("");
+            printf("c");
             break;
         case 'D':
-            printf("");
+            printf("d");
             break;
         case 'E':
-            printf("");
+            printf("e");
             break;
         case 'F':
-            printf("");
+            printf("f");
             break;
         case 'Q':
             return 0;
