@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 // Define an appropriate struct
 typedef struct {
 	char date[11];
@@ -10,10 +9,8 @@ typedef struct {
 	int steps;
 } FITNESS_DATA;
 
-
 int main()
 {
-
     while (1==1)
     {
         char choice; 
@@ -39,9 +36,10 @@ int main()
         char *highest_date;
         char *highest_time;
         //variables for E
-        float total;
-        float tempaverage;
-        float average;
+        int total;
+        int tempaverage;
+        int average;
+        float round;
         //variables for F
         int best;
         int currant;
@@ -159,9 +157,13 @@ int main()
                 total = total + datalist[count].steps;
             }
             average = total/len;
-            tempaverage = 110/3.0;
+            //checks to round up
+            round = total % len;
+            if (round >= (len/2)){
+                average++;
+            }
 
-            printf("Mean step count: %f\n", average);
+            printf("Mean step count: %i\n", average);
             //reopens file
             fclose(file);
             file = fopen(filename, "r");
@@ -180,7 +182,6 @@ int main()
                     currant++;
                 }
                 else{
-
                     currantenddate = datalist[count-1].date;
                     currantendtime = datalist[count-1].time;
 
@@ -196,6 +197,9 @@ int main()
             }
             printf("Longest period start: %s %s\n", startdate, starttime);
             printf("Longest period end: %s %s\n", enddate, endtime);
+            //reopens file
+            fclose(file);
+            file = fopen(filename, "r");
             break;
         case 'Q':
         case 'q':
