@@ -9,6 +9,7 @@ typedef struct {
 	int steps;
 } FITNESS_DATA;
 
+
 int main()
 {
     while (1==1)
