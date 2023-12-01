@@ -34,7 +34,7 @@ int main() {
     FILE *file = fopen(filename, "r");
     if (file == NULL)
     {
-        printf("Error: invalid file\n");
+        printf("Error: invalid file");
         return 1;
     }
     char *tempdate;
@@ -53,13 +53,25 @@ int main() {
         {
             tempdate = token; 
         }
+        else{
+            printf("Error: invalid file");
+            return 1;
+        }
         token = strtok(NULL, ",");
         if (token != NULL) {
             temptime = token;
         }
+        else{
+            printf("Error: invalid file");
+            return 1;
+        }
         token = strtok(NULL, ",");
         if (token != NULL) {
             tempsteps = token;
+        }
+        else{
+            printf("Error: invalid file");
+            return 1;
         }
 
         strcpy(datalist[count].date, tempdate);
@@ -75,19 +87,19 @@ int main() {
         //checks date value format
         if ((strlen(datalist[i].date) != 10) || (datalist[i].date[4] != '-') || (datalist[i].date[7] != '-'))
         {
-           printf("Error: invalid file\n");
+           printf("Error: invalid file");
            return 1;
         }
         //check time value format
         if ((strlen(datalist[i].time) != 5) || (datalist[i].time[2] != ':'))
         {
-           printf("Error: invalid file\n");
+           printf("Error: invalid file");
            return 1;
         }
         //checks steps are in reasonable range 
         if ((0 > datalist[i].steps) || (datalist[i].steps > 5000))
         {
-           printf("Error: invalid file\n");
+           printf("Error: invalid file");
            return 1;
         }        
     }
@@ -106,9 +118,12 @@ int main() {
             }
         }
     }
+
     //saves to file
-    FILE *writefile = fopen("mydata.csv.tsv", "w");
+    char *newfilename = strcat(filename, ".tsv");
+    FILE *writefile = fopen(newfilename, "w");
     for (i = 0; i<len; i++){
         fprintf(writefile,"%s\t%s\t%i\n", datalist[i].date, datalist[i].time, datalist[i].steps);
+        printf("%s\t%s\t%i\n", datalist[i].date, datalist[i].time, datalist[i].steps);
     }
 }
