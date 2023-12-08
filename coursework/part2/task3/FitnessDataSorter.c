@@ -40,6 +40,7 @@ int main() {
     char *tempdate;
     char *temptime;
     char *tempsteps;
+    int tempstepsint;
     int Buffer_size = 200;
     char Buffer_for_lines[Buffer_size];
     int count = 0;
@@ -68,6 +69,12 @@ int main() {
         token = strtok(NULL, ",");
         if (token != NULL) {
             tempsteps = token;
+            tempstepsint = atoi(tempsteps);
+            if ((tempstepsint == 0) && (tempsteps[0] != '0')){
+                printf("Error: invalid file!!!");
+                return 1;
+            }
+
         }
         else{
             printf("Error: invalid file");
@@ -124,6 +131,7 @@ int main() {
     FILE *writefile = fopen(newfilename, "w");
     for (i = 0; i<len; i++){
         fprintf(writefile,"%s\t%s\t%i\n", datalist[i].date, datalist[i].time, datalist[i].steps);
-        printf("%s\t%s\t%i\n", datalist[i].date, datalist[i].time, datalist[i].steps);
+        //printf("%s\t%s\t%i\n", datalist[i].date, datalist[i].time, datalist[i].steps);
     }
+    return 0;
 }
