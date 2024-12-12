@@ -6,6 +6,7 @@ from datetime import datetime
 from flask_login import LoginManager, login_required, logout_user, current_user, login_user
 import bcrypt # bcrypt for hashing passwords
 import os
+import json
 
 
 admin.add_view(ModelView(Items, db.session))
@@ -88,7 +89,7 @@ def all():
     elif order_by == 'rating_desc':
         items = db.session.query(models.Items).order_by(models.Items.rating.desc())
     else:
-        items = db.session.query(models.Items)  # Default order
+        items = db.session.query(models.Items).order_by(models.Items.averageRating.desc())  # Default order
     
     print(f"Items query executed: {items}")  # Debug the items query
     
@@ -117,16 +118,60 @@ def all():
 @app.route('/on-sale',  methods=['GET', 'POST'])
 def sale():
     title = 'On sale'
+    images = {}
+    ratings = []
+    containers = []
+    items = db.session.query(models.Items).filter(
+        models.Items.onSale == True).order_by(
+            models.Items.averageRating.desc())
+    
+    
+    for item in items:
+        photos_dir = os.path.join(app.static_folder, 'photos', item.imageFile)
+        ratings.append(item.averageRating)
+        containers.append("star-rating" + str(item.id))
+        if os.path.exists(photos_dir):
+            files = os.listdir(photos_dir)
+        else:
+            files = []
+        first_image = files[0] if files else None
+        images[item.id] = first_image 
 
-    return render_template('ItemsList.html', title=title)
-
+    return render_template('ItemsList.html',  
+                           title=title, 
+                           items=items, 
+                           images=images,
+                           ratings=ratings,
+                           containers=containers)
 
 @app.route('/my-basket',  methods=['GET', 'POST'])
 @login_required
 def basket():
+    items = db.session.query(models.Items)
+    images = {}
+    ratings = []
+    containers = []
     title = 'My basket'
-
-    return render_template('ItemsList.html', title=title)
+    basket = request.cookies.get('basket', '[]')  # Retrieve the basket cookie
+    item_ids = json.loads(basket)
+    items = Items.query.filter(Items.id.in_(item_ids)).all() if item_ids else []
+    if items:
+        for item in items:
+            photos_dir = os.path.join(app.static_folder, 'photos', item.imageFile)
+            ratings.append(item.averageRating)
+            containers.append("star-rating" + str(item.id))
+            if os.path.exists(photos_dir):
+                files = os.listdir(photos_dir)
+            else:
+                files = []
+            first_image = files[0] if files else None
+            images[item.id] = first_image 
+    return render_template('ItemsList.html',  
+                           title=title, 
+                           items=items, 
+                           images=images,
+                           ratings=ratings,
+                           containers=containers)
 
 
 @app.route('/logout', methods=['GET', 'POST'])

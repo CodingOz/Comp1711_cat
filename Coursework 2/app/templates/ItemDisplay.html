@@ -5,7 +5,7 @@
     <div class="card-display">
         <div class="image-display carousel">
             <div class="carousel-images">
-                {% for image ins images %}
+                {% for image in images %}
                 <img src="{{ url_for('static', filename='photos/' ~ item.imageFile ~ '/' ~ image) }}" class="{% if loop.first %}active{% endif %} image-format">
                 {% if images|length != 1 %}
                 <button class="arrow left" onclick="prevImage()">⇦</button>
@@ -23,7 +23,10 @@
                 <div class="rating-tool"></div>
             </div>
             <p>{{ item.description }}</p>
+
+            <button id="addToCartButton" type="button" onclick="addToBasket({{item.id}})">Add to Cart</button>
         </div>
+
     </div>
 </div>
 {% endblock%}
