@@ -1,0 +1,29 @@
+{% extends "NavBar.html" %}
+{% block content %}
+
+<div class="item-display">
+    <div class="card-display">
+        <div class="image-display carousel">
+            <div class="carousel-images">
+                {% for image ins images %}
+                <img src="{{ url_for('static', filename='photos/' ~ item.imageFile ~ '/' ~ image) }}" class="{% if loop.first %}active{% endif %} image-format">
+                {% if images|length != 1 %}
+                <button class="arrow left" onclick="prevImage()">⇦</button>
+                <button class="arrow right" onclick="nextImage()">⇨</button>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="description-display">
+            <h1>{{title}}</h1>
+            <h4>by {{ item.supplier.name }}</h4>
+            <div id="star-rating" class="star-container">
+                <!-- Stars shown here -->
+                <div class="rating-tool"></div>
+            </div>
+            <p>{{ item.description }}</p>
+        </div>
+    </div>
+</div>
+{% endblock%}

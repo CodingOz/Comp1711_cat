@@ -1,0 +1,39 @@
+{% extends "NavBar.html" %}
+{% block content %}
+<h1>{{title}}</h1>
+<div class="card-display">
+    <div class="card-header bg-dark text-light">
+        <label for="order_by">Order By:</label>
+        <select id="order_by" name="order_by">
+            <option value="name_asc">Name (A-Z)</option>
+            <option value="price_asc">Price (Low to High)</option>
+            <option value="rating_desc">Rating (High to Low)</option>
+        </select>
+
+    </div>
+    <div class="card-container">
+        {% if items %}
+            {% for item in items %}
+                <div class="info-card">
+                    <img src="{{ url_for('static', filename='photos/' ~ item.imageFile ~ '/' ~ images[item.id]) }}"></image>
+                    <div class="card-text">
+                        <p>{{item.name}}</p>
+                        <div id="star-rating{{item.id}}" class="star-container">
+                            <!-- Stars shown here -->
+                            <div class="rating-tool"></div>
+                        </div>
+                        {% if item.onSale %}
+                            <p>Was £{{ "%.2f" | format(item.price) }} now  £{{ "%.2f" | format(item.salePrice) }}</p>
+                        {% else %}
+                            <p>price: £{{ "%.2f" | format(item.price) }} </p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1>No results found</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock%}
+

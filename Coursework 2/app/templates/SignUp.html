@@ -1,0 +1,96 @@
+{% extends "NavBar.html" %}
+{% block content %}
+
+<div class="base-form">
+    <div class="form-header">
+        <h2>Sign Up</h2>
+        <p>Create your account to get started</p>
+    </div>
+    <form method="POST" action="/sign-up">
+        {{ form.hidden_tag() }}
+
+        <!-- First name Field -->
+        <div class="mb-3">
+            <label for="first name" class="form-label">first name</label>
+            {{ form.first_name(class="form-control", id="first_name", placeholder="Enter your first name") }}            
+            {% if form.first_name.errors %}
+                {% for error in form.first_name.errors %}
+                    <div class="bad-input" role="alert" aria-live="assertive">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}   
+        </div>
+
+        <!-- last name Field -->
+        <div class="mb-3">
+            <label for="last name" class="form-label">last name</label>
+            {{ form.last_name(class="form-control", id="last_name", placeholder="Enter your last name") }}  
+            {% if form.last_name.errors %}
+                {% for error in form.last_name.errors %}
+                    <div class="bad-input" role="alert" aria-live="assertive">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}             
+        </div>
+
+        <!-- Email Field -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            {{ form.email(class="form-control", id="email", placeholder="Enter your email") }}
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <div class="bad-input" role="alert" aria-live="assertive">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- postcode Field -->
+        <div class="mb-3">
+            <label for="postcode" class="form-label">Postcode (opptional)</label>
+            {{ form.postcode(class="form-control", id="postcode", placeholder="Enter your postcode") }}
+            {% if form.postcode.errors %}
+                {% for error in form.postcode.errors %}
+                    <div class="bad-input" role="alert" aria-live="assertive">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}       
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" id="password" class="form-control" value="{{ form.password.data }}" placeholder="Enter your password"">
+            {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    <div class="bad-input" role="alert" aria-live="assertive">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div class="mb-3">
+            <label for="confirm_password" class="form-label">Confirm Password</label>
+            {{ form.confirm_password(class="form-control", id="password", placeholder="Re-enter your password") }}
+            {% for error in form.confirm_password.errors %}
+                <div class="bad-input" role="alert" aria-live="assertive">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid">
+            {{ form.submit(class="btn-primary")}}
+        </div>
+    </form>
+    <p class="text-center mt-3 small">Already have an account? <a href="/login" class="text-white">Log in</a></p>
+</div>
+
+{% endblock%}

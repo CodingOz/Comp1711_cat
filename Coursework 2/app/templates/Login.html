@@ -1,0 +1,46 @@
+{% extends "NavBar.html" %}
+{% block content %}
+
+<div class="base-form">
+    <div class="form-header">
+        <h2>Login</h2>
+        <p>Enter account to start shopping</p>
+    </div>
+    <form method="POST" action="/login">
+        {{ form.hidden_tag() }}
+
+        <!-- Email Field -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            {{ form.email(class="form-control", id="email", placeholder="Enter your email") }}
+            {% if form.email.errors %}
+                <div class="text-danger small mt-1">
+                    {% for error in form.email.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            {{ form.password(class="form-control", id="password", placeholder="Enter your password") }}
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3">
+            {{ form.remember_me.label}} {{ form.remember_me(id="remember_me") }}
+        </div>
+
+
+        <!-- Submit Button -->
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+
+    </form>
+    <p class="text-center mt-3 small">don't have an account? <a href="/sign-up" class="text-white">sigh up</a></p>
+</div>
+
+{% endblock%}

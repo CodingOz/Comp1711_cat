@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- CSS from static -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- CSS for cookie concent -->
+    <link rel="stylesheet" type="text.css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.css" />
+    
+    {% if title %}
+      <title>{{ title }}</title>
+    {% else %}
+      <title>No title specified</title>
+    {% endif %}
+  </head>
+  <body onload="setUpRatings({{ ratings }}, {{ containers }})">
+    <nav class="navbar navbar-expand-sm">
+      <a class="navbar-brand" href="/">Keychains Plus</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/all-items">All Items</a></li>
+          <li class="nav-item"><a class="nav-link" href="/on-sale">On Sale</a></li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+          {% if current_user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            <li class="nav-item"><a class="nav-link" href="/my-basket"><i class="fas fa-shopping-basket"></i> Basket</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="/sign-up">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <div class="row justify-content-center align-items-center">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-success form-control" role="alert">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+
+          {% block content %}{% endblock %}
+      </div>
+    </div>
+    <footer class="site-footer">
+      <div class="footer-container">
+          <!-- Social Media Links -->
+          <div class="footer-section">
+              <h3>Follow Us</h3>
+              <ul class="social-links">
+                  <li><a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a></li>
+                  <li><a href="https://www.twitter.com" target="_blank" rel="noopener">Twitter</a></li>
+                  <li><a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+                  <li><a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+              </ul>
+          </div>
+  
+          <!-- Tech Support Links -->
+          <div class="footer-section">
+              <h3>Tech Support</h3>
+              <ul>
+                  <li><a href="/">Contact Support</a></li>
+                  <li><a href="/">FAQs</a></li>
+                  <li><a href="/">Troubleshooting</a></li>
+                  <li><a href="/">Send Feedback</a></li>
+              </ul>
+          </div>
+  
+          <!-- Additional Links -->
+          <div class="footer-section">
+              <h3>Quick Links</h3>
+              <ul>
+                  <li><a href="/">About Us</a></li>
+                  <li><a href="/">Terms of Service</a></li>
+                  <li><a href="/">Privacy Policy</a></li>
+                  <li><a href="/">Careers</a></li>
+              </ul>
+          </div>
+      </div>
+    </footer>
+  
+
+    <!-- cookie concent script -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.js"></script>
+    <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
+    
+     <!-- ajax script -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="{{ url_for('static', filename='js/AJAX.js') }}"></script>
+
+    <!-- custom graphics script -->
+    <script src="{{ url_for('static', filename='js/graphics.js') }}"></script>
+
+    <!-- Popper.js, and Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
+</html>
